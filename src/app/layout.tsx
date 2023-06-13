@@ -1,12 +1,11 @@
+"use client"
+
 import './globals.css'
 import { Inter } from 'next/font/google'
-
+import React from 'react';
+import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Açaí Delivery',
-  description: 'App açaí delivery',
-}
 
 export default function RootLayout({
   children,
@@ -15,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>   <MantineProvider>{children}</MantineProvider></body>
     </html>
   )
 }
