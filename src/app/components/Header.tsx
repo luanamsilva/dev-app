@@ -1,7 +1,9 @@
+"use client"
+
 import { useState } from 'react';
 import {
   createStyles,
-  Header,
+  Header as MantineHeader,
   Container,
   Group,
   Burger,
@@ -10,7 +12,6 @@ import {
   rem,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { MantineLogo } from '@mantine/ds';
 
 const HEADER_HEIGHT = rem(60);
 
@@ -83,23 +84,27 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+interface Link {
+  url: string
+  label: string
+}
 interface HeaderResponsiveProps {
-  links: { link: string; label: string }[];
+  links: Link[]
 }
 
 export function Header({ links }: HeaderResponsiveProps) {
   const [opened, { toggle, close }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
+  const [active, setActive] = useState(links.at(0));
   const { classes, cx } = useStyles();
 
   const items = links.map((link) => (
     <a
       key={link.label}
-      href={link.link}
-      className={cx(classes.link, { [classes.linkActive]: active === link.link })}
+      href={link.url}
+      className={cx(classes.link, { [classes.linkActive]: active === link })}
       onClick={(event) => {
         event.preventDefault();
-        setActive(link.link);
+        setActive(link);
         close();
       }}
     >
@@ -108,9 +113,8 @@ export function Header({ links }: HeaderResponsiveProps) {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
+    <MantineHeader height={HEADER_HEIGHT} mb={120} className={classes.root}>
       <Container className={classes.header}>
-        <MantineLogo size={28} />
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
@@ -125,6 +129,6 @@ export function Header({ links }: HeaderResponsiveProps) {
           )}
         </Transition>
       </Container>
-    </Header>
+    </MantineHeader>
   );
 }

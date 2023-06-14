@@ -6,12 +6,7 @@ import React from 'react';
 import { MantineProvider } from '@mantine/core';
 const inter = Inter({ subsets: ['latin'] })
 
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html lang="en">
       <body className={inter.className}>
